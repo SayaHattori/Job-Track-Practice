@@ -1,5 +1,5 @@
 <?php
-
+//Laravel の入口になるファイルで、基本的に自分で編集することはない
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
