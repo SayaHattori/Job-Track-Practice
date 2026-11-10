@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Task\TaskRequest;
-use Illuminate\Support\Facades\Log;  // ログを使用するためのインポート
-use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -20,22 +18,22 @@ class TaskController extends Controller
 
     public function create()
     {
-        return view('tasks.index');
+        return view('tasks.create');
     }
 
 
-    public function store(TaskRequest $request)
+    public function store(Request $request)
     {
-        $tasks = new Task();
-        $tasks->content = $request->input('tasks');
-        $tasks->save();
-        $calender = new Calendar();
-        $calender->date = $request->input('tasks-calendar');
-        $calender->save();
-        $memo = new Memo();
-        $memo->content = $request->input('tasks-memo');
-        $memo->save();
-        // バリデーション済みのデータを使用してタスクを作成する処理をここに追加
+    dd($request->all()); //デバッグ用　諸々完成したら消す
+
+    $task = new Task();
+
+    $task->content = $request->input('tasks');
+    $task->due_date = $request->input('tasks-calendar');
+    $task->memo = $request->input('tasks-memo');
+
+    $task->save();
+        // task.calender.memoをまとめて保存する
 
         // タスク作成後のリダイレクトやレスポンスを返す
         return redirect()->route('tasks.index')->with('success', 'タスクが作成されました。');
