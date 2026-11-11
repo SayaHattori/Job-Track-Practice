@@ -2,6 +2,7 @@
 
 <a href="{{ route('tasks.create') }}">タスクを新規登録する</a>
 
+{{-- 登録しましたと表示 --}}
 @if (session('success'))
     <p>{{ session('success') }}</p>
 @endif

@@ -3,6 +3,7 @@
 //それ以外の処理はコントローラに書くこと。ここでは、ルーティングの設定だけを行うこと。
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TopController;
 use App\Http\Controllers\TaskController;
 
 Route::get('/dashboard', function () {
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks', 'App\\Http\\Controllers\\TaskController@index')->name('tasks.index');
     Route::get('/tasks/create', 'App\\Http\\Controllers\\TaskController@create')->name('tasks.create');
     Route::post('/tasks', 'App\\Http\\Controllers\\TaskController@store')->name('tasks.store');
+    Route::get('/home', [TopController::class, 'top'])->name('top');
 });
 
 require __DIR__.'/auth.php';
