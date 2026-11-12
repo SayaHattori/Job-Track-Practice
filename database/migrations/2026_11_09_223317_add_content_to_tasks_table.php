@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::table('tasks', function (Blueprint $table) {
 
             $table->string('content', 20)->after('id');
-            $table->dateTime('due_date')->nullable()->after('content');
+            $table->dateTime('due_date')->after('content');
             $table->string('memo', 255)->nullable()->after('due_date');
         });
     }

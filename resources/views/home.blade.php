@@ -5,22 +5,22 @@
     <div class="task-status">
 
         <div class="status-box">
-            <p class="task-count">1件</p>
+            <p class="task-count">{{ $Ready }}件</p>
             <p class="task-label">未着手</p>
         </div>
 
         <div class="status-box">
-            <p class="task-count">2件</p>
+            <p class="task-count">{{ $doing }}件</p>
             <p class="task-label">着手中</p>
         </div>
 
         <div class="status-box">
-            <p class="task-count">3件</p>
+            <p class="task-count">{{ $Done }}件</p>
             <p class="task-label">完了</p>
         </div>
 
         <div class="status-box">
-            <p class="task-count">4件</p>
+            <p class="task-count">{{ $notReady }}件</p>
             <p class="task-label">期限切れ</p>
         </div>
 
