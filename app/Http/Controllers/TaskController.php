@@ -8,20 +8,55 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index($tabindex = null)
+    public function index(Request $request)
     {
-        $select = Task::query();
-        if ($tabindex !== null) {
-            $select->where('status', $tabindex);
-        }
-
-        $tasks = $select->orderBy('created_at', 'desc')->get();
+        $tasks = Task::orderBy('due_date', 'asc')->get();
 
         //タスク一覧にビューを返す
-        return view('tasks.index', compact('tasks', 'tabindex'));
+        return view('tasks.index', compact('tasks'));
+    }
+    //ステータス別表示　https://zenn.dev/engineer_yone3/articles/c3d12c99b2caef
+    //https://www.reddit.com/r/laravel/comments/o1s94g/using_compact_vs_associative_array/?tl=ja
+
+    //未着手を表示
+    public function Ready()
+    {
+        $tasks = Task::where('status', '1')
+             ->orderBy('due_date', 'asc')
+             ->get();
+
+            return view('tasks.index', compact('tasks'));
     }
 
-    //https://www.reddit.com/r/laravel/comments/o1s94g/using_compact_vs_associative_array/?tl=ja
+    //着手中を表示
+    public function doing()
+    {
+        $tasks = Task::where('status', '2')
+             ->orderBy('due_date', 'asc')
+             ->get();
+
+            return view('tasks.index', compact('tasks'));
+    }
+
+    //完了済を表示
+    public function Done()
+    {
+        $tasks = Task::where('status', '3')
+             ->orderBy('due_date', 'asc')
+             ->get();
+
+            return view('tasks.index', compact('tasks'));
+    }
+
+    //期限切れを表示
+    public function notReady()
+    {
+        $tasks = Task::where('due_date', '<', now())
+             ->orderBy('due_date', 'asc')
+             ->get();
+
+            return view('tasks.index', compact('tasks'));
+    }
 
     public function create()
     {
@@ -31,8 +66,7 @@ class TaskController extends Controller
 
     public function store(TaskRequest $request)
     {
-        $task = new Task();
-
+        $task = new task;
         $task->content = $request->input('tasks');
         $task->due_date = $request->input('tasks-calendar');
         $task->memo = $request->input('tasks-memo');

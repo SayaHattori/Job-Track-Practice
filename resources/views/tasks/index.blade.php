@@ -3,11 +3,23 @@
 <a href="{{ route('tasks.create') }}">
     タスクを新規登録する
 </a>
+<a href="{{ route('top') }}">
+    ホームに戻る
+</a>
 
 {{-- 成功メッセージ --}}
 @if (session('success'))
     <p>{{ session('success') }}</p>
 @endif
+
+{{-- ステータス切り替える --}}
+<nav>
+    <a href="{{ route('tasks.index') }}">全て</a>
+    <a href="{{ route('tasks.Ready') }}">未着手</a>
+    <a href="{{ route('tasks.doing') }}">作業中</a>
+    <a href="{{ route('tasks.Done') }}">完了済</a>
+    <a href="{{ route('tasks.notReady') }}">期限切れ</a>
+</nav>
 
 {{-- タスク一覧 --}}
 <table>
@@ -71,3 +83,4 @@
         </tr>
     @endforeach
 </table>
+
