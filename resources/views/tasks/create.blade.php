@@ -1,7 +1,7 @@
 <h1>やること新規登録</h1>
-
-    <form action="{{ route('tasks.store') }}" method="POST">
+<form action="{{ route('tasks.store') }}" method="POST">
     <div class="task-form">
+        {{-- 情報を送信するためのエリア --}}
         @csrf
         <p>タスク名</p>
         <textarea id="tasks-content" name="tasks"></textarea>

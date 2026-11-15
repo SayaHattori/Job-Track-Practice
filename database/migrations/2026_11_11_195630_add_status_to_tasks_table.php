@@ -6,22 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('tasks', function (Blueprint $table) { $table->integer('status')->default(0);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::table('tasks', function (Blueprint $table) { $table->dropColumn('status');
+        });
     }
 };
