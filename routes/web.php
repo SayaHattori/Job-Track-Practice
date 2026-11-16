@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks/doing', [TaskController::class, 'doing'])->name('tasks.doing');
     Route::get('/tasks/Done', [TaskController::class, 'Done'])->name('tasks.Done');
     Route::get('/tasks/notReady', [TaskController::class, 'notReady'])->name('tasks.notReady');
+    Route::patch('/tasks/{task}', [TaskController::class, 'Tasks'])->name('tasks.update');
+    Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     });
 
 require __DIR__.'/auth.php';

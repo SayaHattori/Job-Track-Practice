@@ -78,6 +78,7 @@
                         </option>
                     </select>
                     <button type="submit">更新</button>
+                    <a href="{{ route('tasks.edit', $task->id) }}">編集</a>
                 </form>
             </td>
         </tr>

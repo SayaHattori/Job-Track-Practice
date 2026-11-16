@@ -52,6 +52,7 @@ class TaskController extends Controller
     public function notReady()
     {
         $tasks = Task::where('due_date', '<', now())
+             ->whereIn('status',[1,2])
              ->orderBy('due_date', 'asc')
              ->get();
 
@@ -77,9 +78,28 @@ class TaskController extends Controller
         // タスク作成後のリダイレクトやレスポンスを返す
         return redirect()->route('tasks.index')->with('success', 'タスクが作成されました。');
     }
+
+    // タスク名・期限・メモを更新
+    //https://zenn.dev/solatukishiro/articles/035a2bc64e3fba
+
+    // 編集画面表示
+    public function edit(Task $task)
+    { return view('tasks.edit', compact('task'));}
+
+    public function updateTasks(TaskRequest $request, Task $task)
+    {
+        $task->content = $request->input('tasks');
+        $task->due_date = $request->input('tasks-calendar');
+        $task->memo = $request->input('tasks-memo');
+
+        $task->save();
+
+        return redirect()->route('tasks.index')->with('success', 'タスクが作成されました。');
+    }
+
     // タスクのステータスを更新する
-public function updateStatus(Request $request, Task $task)
-{
+    public function updateStatus(Request $request, Task $task)
+    {
     // ステータスが1・2・3のいずれかを確認
     $validated = $request->validate([
         'status' => ['required', 'integer', 'in:1,2,3'],
