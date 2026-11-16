@@ -71,7 +71,6 @@ class TaskController extends Controller
         $task->content = $request->input('tasks');
         $task->due_date = $request->input('tasks-calendar');
         $task->memo = $request->input('tasks-memo');
-        $task->status = 1; //新しいタスクはデフォルトが１（未着手）
         $task->save();
 
         // task.calender.memoをまとめて保存する
@@ -112,5 +111,15 @@ class TaskController extends Controller
     // タスク一覧に戻る
     return redirect()->route('tasks.index')
         ->with('success', 'ステータスを更新しました。');
-}
+    }
+
+    // タスク削除処理
+    //https://qiita.com/179Bell/items/2bf6a58d9314f5f00eeb
+    public function destroy(Task $task)
+    {
+    $task->delete();
+    return redirect()->route('tasks.index')
+        ->with('success', 'タスクを削除しました。');
+    }
+
 }
