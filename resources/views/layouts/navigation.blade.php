@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+{{-- <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -97,4 +97,41 @@
             </div>
         </div>
     </div>
-</nav>
+</nav> --}}
+
+
+<aside class="sidebar">
+    <p class="sidebar-user">
+        ようこそ、{{ auth()->user()->name }}さん
+    </p>
+
+    <nav class="sidebar-menu" aria-label="メインメニュー">
+        <a href="{{ route('top') }}"
+           @class([
+               'sidebar-link',
+               'is-active' => request()->routeIs('top'),
+           ])>
+            ホーム
+        </a>
+
+        <a href="{{ route('tasks.index') }}"
+           @class([
+               'sidebar-link',
+               'is-active' => request()->routeIs('tasks.*'),
+           ])>
+            やることリスト
+        </a>
+
+        {{-- <span class="sidebar-label">スケジュール　</span> --}}
+
+        <span class="sidebar-label">設定（準備中）</span>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+
+            <button type="submit" class="sidebar-link sidebar-logout">
+                ログアウト
+            </button>
+        </form>
+    </nav>
+</aside>

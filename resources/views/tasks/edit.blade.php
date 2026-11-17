@@ -1,3 +1,4 @@
+<x-app-layout>
 <h1>やること編集</h1>
 {{-- 更新する前のタスクID渡す --}}
 <form action="{{ route('tasks.update',['task' => $task->id]) }}" method="POST">
@@ -29,3 +30,4 @@
         </a>
     </div>
 </form>
+</x-app-layout>

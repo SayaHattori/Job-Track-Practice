@@ -1,3 +1,139 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-user {
+    margin-bottom: 32px;
+    overflow-wrap: anywhere;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-link,
+.sidebar-label {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+.sidebar-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: #f3f4f6;
+}
+
+.sidebar-link.is-active {
+    color: #1d4ed8;
+    background-color: #dbeafe;
+}
+
+.sidebar-label {
+    color: #888;
+}
+
+.sidebar-logout {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.app-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.page-header {
+    padding: 20px 32px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-content {
+    padding: 32px;
+    overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        width: 160px;
+        padding: 16px 8px;
+    }
+
+    .page-content {
+        padding: 16px;
+    }
+    }
+.task-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.task-count {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.task-label {
+    margin-top: 8px;
+    color: #666;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background-color: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.status-box {
+    flex: 1;
+    min-width: 140px;
+    padding: 24px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+

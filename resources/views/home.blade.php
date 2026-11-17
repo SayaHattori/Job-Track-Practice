@@ -1,7 +1,5 @@
-<h1>ホーム</h1>
-
-    <form action="{{ route('tasks.store') }}" method="POST">
-
+<x-app-layout>
+    <h1>ホーム</h1>
     <div class="task-status">
 
         <div class="status-box">
@@ -26,21 +24,22 @@
 
     </div>
 
-<h2>やることリスト</h2>
+ <h2>やることリスト</h2>
 
-@if($tasks->isEmpty())
+ @if($tasks->isEmpty())
     <p>登録されているタスクはありません。</p>
-@else
-@foreach ($tasks as $task)
+ @else
+ @foreach ($tasks as $task)
     <div>
         <p>{{ $task->content }}</p>
         <p>期限：{{ $task->due_date }}</p>
         <p>メモ：{{ $task->memo }}</p>
     </div>
-@endforeach
-@endif
-<a href="{{ route('tasks.index') }}" class="btn">やることリスト</a>
-<a href="{{ route('tasks.create') }}" class="btn">新規登録</a>
+ @endforeach
+ @endif
+ <a href="{{ route('tasks.index') }}" class="btn">やることリスト</a>
+ <a href="{{ route('tasks.create') }}" class="btn">新規登録</a>
+</x-app-layout>
 
 
 

@@ -1,3 +1,4 @@
+<x-app-layout>
 <h1>やること一覧</h1>
 
 <a href="{{ route('tasks.create') }}">
@@ -21,8 +22,17 @@
     <a href="{{ route('tasks.notReady') }}">期限切れ</a>
 </nav>
 
+{{-- ステータス更新 --}}
+<form id="status-update-form" action="{{ route('tasks.updateStatus')}}" method="POST">
+    @csrf
+    @method('PATCH')
+
+        <button type="submit">更新</button>
+        </form>
+
+
 {{-- タスク一覧 --}}
-<table>
+<table class="task-table">
     <tr>
         <th>タスク名</th>
         <th>期限</th>
@@ -48,31 +58,24 @@
                 @endif --}}
 
             <td>
-                @if ($task->status == 2)
-                    着手中
-                @elseif ($task->status == 3)
-                    完了
-                @else
+            <select name="statuses[{{ $task->id }}]"
+                form="status-update-form">
+                <option value="1" @selected(old('statuses.'.$task->id, $task->status) === 1)>
                     未着手
-                @endif
+                </option>
+                <option value="2"
+                    @selected(old('statuses.'.$task->id, $task->status) == 2)>
+                    着手中
+                </option>
+                <option value="3"
+                    @selected(old('statuses.'.$task->id, $task->status) == 3)>
+                    完了
+                </option>
+            </select>
             </td>
 
             <td>
-                <div class="task-actions">
-
-                    {{-- ステータス更新 --}}
-                    <form action="{{ route('tasks.updateStatus', $task->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-
-                        <select name="status">
-                            <option value="1" @selected($task->status == 1)>未着手</option>
-                            <option value="2" @selected($task->status == 2)>着手中</option>
-                            <option value="3" @selected($task->status == 3)>完了</option>
-                        </select>
-
-                        <button type="submit">更新</button>
-                    </form>
+            <div class="task-actions">
 
                     {{-- 編集画面へ --}}
                     <a href="{{ route('tasks.edit', $task->id) }}">編集</a>
@@ -84,12 +87,11 @@
 
                         <button type="submit">削除</button>
                     </form>
-
                 </div>
             </td>
         </tr>
     @endforeach
 </table>
-
+</x-app-layout>
 
 

@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/home', [TopController::class, 'top'])->name('top');
-    Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
+    Route::patch('/tasks/status', [TaskController::class, 'updateStatus'])
     ->name('tasks.updateStatus');
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/Ready', [TaskController::class, 'Ready'])->name('tasks.Ready');
