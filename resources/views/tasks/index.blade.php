@@ -58,30 +58,38 @@
             </td>
 
             <td>
-                {{-- アップデートした後の処理 --}}
-                <form action="{{ route('tasks.updateStatus', $task->id) }}"
-                      method="POST">
+                <div class="task-actions">
 
-                    @csrf
-                    {{-- 既存のデータの更新 --}}
-                    @method('PATCH')
+                    {{-- ステータス更新 --}}
+                    <form action="{{ route('tasks.updateStatus', $task->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
 
-                    <select name="status">
-                        <option value="1" @selected($task->status == 1)>
-                            未着手
-                        </option>
-                        <option value="2" @selected($task->status == 2)>
-                            着手中
-                        </option>
-                        <option value="3" @selected($task->status == 3)>
-                            完了
-                        </option>
-                    </select>
-                    <button type="submit">更新</button>
+                        <select name="status">
+                            <option value="1" @selected($task->status == 1)>未着手</option>
+                            <option value="2" @selected($task->status == 2)>着手中</option>
+                            <option value="3" @selected($task->status == 3)>完了</option>
+                        </select>
+
+                        <button type="submit">更新</button>
+                    </form>
+
+                    {{-- 編集画面へ --}}
                     <a href="{{ route('tasks.edit', $task->id) }}">編集</a>
-                </form>
+
+                    {{-- タスク削除 --}}
+                    <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit">削除</button>
+                    </form>
+
+                </div>
             </td>
         </tr>
     @endforeach
 </table>
+
+
 
