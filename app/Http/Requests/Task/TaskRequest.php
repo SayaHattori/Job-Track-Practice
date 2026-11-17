@@ -23,7 +23,8 @@ class TaskRequest extends FormRequest
             'tasks' => ['required', 'string', 'max:20'],
 
             // 期限：必須、年月日と時刻
-            'tasks-calendar' => ['required', 'date_format:Y-m-d\TH:i'],
+            // 期限：年月日と時刻、現在より前の日付は設定出来ない
+            'tasks-calendar' => ['required', 'date_format:Y-m-d\TH:i', 'after_or_equal:now'],
 
             // メモ：任意、文字列、255文字以内
             'tasks-memo' => ['nullable', 'string', 'max:255'],
