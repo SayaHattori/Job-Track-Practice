@@ -397,3 +397,62 @@ textarea.task-input {
         padding: 16px;
     }
 }
+
+/* ログイン画面内の余白 */
+.login-page {
+    padding: 16px 0;
+}
+
+.login-page .tasks-title {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.login-description {
+    margin-bottom: 28px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* ログイン状態の保持 */
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.login-remember input {
+    accent-color: #2563eb;
+}
+
+/* 既存のbtnを横幅いっぱいにする */
+.login-page .login-submit {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-page .login-submit:hover {
+    background-color: #1d4ed8;
+}
+
+.login-forgot {
+    display: block;
+    margin-top: 20px;
+    color: #2563eb;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.login-forgot:hover {
+    text-decoration: underline;
+}
