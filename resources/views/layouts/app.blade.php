@@ -15,22 +15,20 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="app-layout">
-            @include('layouts.navigation')
+    <div class="app-layout">
+        @include('layouts.navigation')
 
-            <!-- Page Heading -->
+        <div class="app-content">
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
+                <header class="page-header">
+                    {{ $header }}
                 </header>
             @endisset
 
-            <!-- Page Content -->
-            <main>
+            <main class="page-content">
                 {{ $slot }}
             </main>
         </div>
-    </body>
+    </div>
+</body>
 </html>

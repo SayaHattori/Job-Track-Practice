@@ -1,12 +1,25 @@
 <x-app-layout>
-<h1>やること一覧</h1>
+    <div class="tasks-page">
+        <h1 class="tasks-title">やること一覧</h1>
 
-<a href="{{ route('tasks.create') }}">
-    タスクを新規登録する
-</a>
-<a href="{{ route('top') }}">
-    ホームに戻る
-</a>
+<div class="task-toolbar">
+    <a href="{{ route('tasks.create') }}" class="btn">
+        タスクを新規登録する
+    </a>
+
+    <a href="{{ route('top') }}" class="btn">
+        ホームに戻る
+    </a>
+
+    <form id="status-update-form"
+          action="{{ route('tasks.updateStatus') }}"
+          method="POST">
+        @csrf
+        @method('PATCH')
+
+        <button type="submit" class="btn">更新</button>
+    </form>
+</div>
 
 {{-- 成功メッセージ --}}
 @if (session('success'))
@@ -14,21 +27,43 @@
 @endif
 
 {{-- ステータス切り替える --}}
-<nav>
-    <a href="{{ route('tasks.index') }}">全て</a>
-    <a href="{{ route('tasks.Ready') }}">未着手</a>
-    <a href="{{ route('tasks.doing') }}">作業中</a>
-    <a href="{{ route('tasks.Done') }}">完了済</a>
-    <a href="{{ route('tasks.notReady') }}">期限切れ</a>
+<nav class="task-tabs">
+    <a href="{{ route('tasks.index') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.index'),
+       ])>
+        全て
+    </a>
+
+    <a href="{{ route('tasks.Ready') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.Ready'),
+       ])>
+        未着手
+    </a>
+
+    <a href="{{ route('tasks.doing') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.doing'),
+       ])>
+        着手中
+    </a>
+
+    <a href="{{ route('tasks.Done') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.Done'),
+       ])>
+        完了済
+    </a>
+
+    <a href="{{ route('tasks.notReady') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.notReady'),
+       ])>
+        期限切れ
+    </a>
 </nav>
 
-{{-- ステータス更新 --}}
-<form id="status-update-form" action="{{ route('tasks.updateStatus')}}" method="POST">
-    @csrf
-    @method('PATCH')
-
-        <button type="submit">更新</button>
-        </form>
 
 
 {{-- タスク一覧 --}}
@@ -58,9 +93,10 @@
                 @endif --}}
 
             <td>
-            <select name="statuses[{{ $task->id }}]"
+            <select class="task-status-select"
+                name="statuses[{{ $task->id }}]"
                 form="status-update-form">
-                <option value="1" @selected(old('statuses.'.$task->id, $task->status) === 1)>
+                <option value="1" @selected(old('statuses.'.$task->id, $task->status) == 1)>
                     未着手
                 </option>
                 <option value="2"
@@ -78,20 +114,21 @@
             <div class="task-actions">
 
                     {{-- 編集画面へ --}}
-                    <a href="{{ route('tasks.edit', $task->id) }}">編集</a>
+                    <a href="{{ route('tasks.edit', $task->id) }}" class="task-edit">編集</a>
 
                     {{-- タスク削除 --}}
                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
-                        <button type="submit">削除</button>
+                        <button type="submit" class="task-delete">削除</button>
                     </form>
                 </div>
             </td>
         </tr>
     @endforeach
 </table>
+</div>
 </x-app-layout>
 
 
