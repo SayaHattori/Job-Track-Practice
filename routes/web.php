@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{task}', [TaskController::class, 'updateTasks'])->name('tasks.update');
     Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    Route::get('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
     });
 
 

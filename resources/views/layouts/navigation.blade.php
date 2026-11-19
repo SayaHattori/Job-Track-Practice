@@ -102,7 +102,7 @@
 
 <aside class="sidebar">
     <p class="sidebar-user">
-        ようこそ、{{ auth()->user()->name }}さん
+        ようこそ！{{ auth()->user()->name }}さん！
     </p>
 
     <nav class="sidebar-menu" aria-label="メインメニュー">
@@ -124,7 +124,13 @@
 
         {{-- <span class="sidebar-label">スケジュール　</span> --}}
 
-        <span class="sidebar-label">設定（準備中）</span>
+        <a href="{{ route('profile.edit') }}"
+   @class([
+       'sidebar-link',
+       'is-active' => request()->routeIs('profile.*'),
+   ])>
+    設定
+</a>
 
         <form action="{{ route('logout') }}" method="POST">
             @csrf
