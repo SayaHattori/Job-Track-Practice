@@ -100,14 +100,18 @@ class TaskController extends Controller
     // タスクのステータスを更新する
     public function updateStatus(Request $request, Task $task)
     {
-    // ステータスが1・2・3のいずれかを確認
+    // ステータㇲを配列にして1・2・3のいずれかを確認
     $validated = $request->validate([
-        'status' => ['required', 'integer', 'in:1,2,3'],
+    'statuses' => ['required', 'array'],
+        'statuses' => ['required', 'integer', 'in:1,2,3'],
     ]);
 
     // ステータスを更新
-    $task->status = $validated['status'];
+    foreach ($validated['statuses'] as $id => $status) {
+    $task = Task::findOrFail($id);
+    $task->status = $status;
     $task->save();
+    }
 
     // タスク一覧に戻る
     return redirect()->route('tasks.index')

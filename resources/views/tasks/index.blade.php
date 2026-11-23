@@ -1,11 +1,25 @@
-<h1>やること一覧</h1>
+<x-app-layout>
+    <div class="tasks-page">
+        <h1 class="tasks-title">やること一覧</h1>
 
-<a href="{{ route('tasks.create') }}">
-    タスクを新規登録する
-</a>
-<a href="{{ route('top') }}">
-    ホームに戻る
-</a>
+<div class="task-toolbar">
+    <a href="{{ route('tasks.create') }}" class="btn">
+        タスクを新規登録する
+    </a>
+
+    <a href="{{ route('top') }}" class="btn">
+        ホームに戻る
+    </a>
+
+    <form id="status-update-form"
+          action="{{ route('tasks.updateStatus') }}"
+          method="POST">
+        @csrf
+        @method('PATCH')
+
+        <button type="submit" class="btn">更新</button>
+    </form>
+</div>
 
 {{-- 成功メッセージ --}}
 @if (session('success'))
@@ -13,16 +27,47 @@
 @endif
 
 {{-- ステータス切り替える --}}
-<nav>
-    <a href="{{ route('tasks.index') }}">全て</a>
-    <a href="{{ route('tasks.Ready') }}">未着手</a>
-    <a href="{{ route('tasks.doing') }}">作業中</a>
-    <a href="{{ route('tasks.Done') }}">完了済</a>
-    <a href="{{ route('tasks.notReady') }}">期限切れ</a>
+<nav class="task-tabs">
+    <a href="{{ route('tasks.index') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.index'),
+       ])>
+        全て
+    </a>
+
+    <a href="{{ route('tasks.Ready') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.Ready'),
+       ])>
+        未着手
+    </a>
+
+    <a href="{{ route('tasks.doing') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.doing'),
+       ])>
+        着手中
+    </a>
+
+    <a href="{{ route('tasks.Done') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.Done'),
+       ])>
+        完了済
+    </a>
+
+    <a href="{{ route('tasks.notReady') }}"
+       @class([
+           'is-active' => request()->routeIs('tasks.notReady'),
+       ])>
+        期限切れ
+    </a>
 </nav>
 
+
+
 {{-- タスク一覧 --}}
-<table>
+<table class="task-table">
     <tr>
         <th>タスク名</th>
         <th>期限</th>
@@ -73,48 +118,42 @@
             <td>{{ $task->memo }}</td>
 
             <td>
-                @if ($task->status == 2)
-                    着手中
-                @elseif ($task->status == 3)
-                    完了
-                @else
+            <select class="task-status-select"
+                name="statuses[{{ $task->id }}]"
+                form="status-update-form">
+                <option value="1" @selected(old('statuses.'.$task->id, $task->status) == 1)>
                     未着手
-                @endif
+                </option>
+                <option value="2"
+                    @selected(old('statuses.'.$task->id, $task->status) == 2)>
+                    着手中
+                </option>
+                <option value="3"
+                    @selected(old('statuses.'.$task->id, $task->status) == 3)>
+                    完了
+                </option>
+            </select>
             </td>
 
             <td>
-                <div class="task-actions">
-
-                    {{-- ステータス更新 --}}
-                    <form action="{{ route('tasks.updateStatus', $task->id) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
-
-                        <select name="status">
-                            <option value="1" @selected($task->status == 1)>未着手</option>
-                            <option value="2" @selected($task->status == 2)>着手中</option>
-                            <option value="3" @selected($task->status == 3)>完了</option>
-                        </select>
-
-                        <button type="submit">更新</button>
-                    </form>
+            <div class="task-actions">
 
                     {{-- 編集画面へ --}}
-                    <a href="{{ route('tasks.edit', $task->id) }}">編集</a>
+                    <a href="{{ route('tasks.edit', $task->id) }}" class="task-edit">編集</a>
 
                     {{-- タスク削除 --}}
                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
-                        <button type="submit">削除</button>
+                        <button type="submit" class="task-delete">削除</button>
                     </form>
-
                 </div>
             </td>
         </tr>
     @endforeach
 </table>
-
+</div>
+</x-app-layout>
 
 

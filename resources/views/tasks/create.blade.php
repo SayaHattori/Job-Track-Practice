@@ -1,4 +1,5 @@
-<h1>やること新規登録</h1>
+<x-app-layout>
+    <h1>やること新規登録</h1>
 <form action="{{ route('tasks.store') }}" method="POST">
     <div class="task-form">
         {{-- 情報を送信するためのエリア --}}
@@ -24,3 +25,4 @@
         <button type="submit">登録</button>
     </div>
 </form>
+</x-app-layout>

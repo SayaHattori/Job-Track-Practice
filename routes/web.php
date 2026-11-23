@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -19,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::get('/home', [TopController::class, 'top'])->name('top');
-    Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
+    Route::patch('/tasks/status', [TaskController::class, 'updateStatus'])
     ->name('tasks.updateStatus');
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::get('/tasks/Ready', [TaskController::class, 'Ready'])->name('tasks.Ready');
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{task}', [TaskController::class, 'updateTasks'])->name('tasks.update');
     Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+    Route::get('/profile/delete', [ProfileController::class, 'delete'])->name('profile.delete');
     });
 
 

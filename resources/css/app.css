@@ -1,3 +1,458 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 一覧全体の幅 */
+.tasks-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 見出し */
+.tasks-title {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.task-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* 更新フォームを右端へ */
+.task-toolbar #status-update-form {
+    margin-left: auto;
+}
+
+.task-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0;
+    margin: 28px 0;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.task-tabs a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 64px;
+    padding: 12px 4px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+}
+
+.task-tabs a.is-active {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+    font-weight: bold;
+    box-shadow: inset 0 -3px 0 #2563eb;
+}
+
+/* 項目の間に区切り線 */
+.task-tabs a + a {
+    border-left: 1px solid #e5e7eb;
+}
+
+.task-tabs a:hover {
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+.task-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* テーブル */
+.tasks-page .task-table {
+    width: 100%;
+    background-color: #fff;
+    font-size: 15px;
+}
+
+.task-table th,
+.task-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+/* 編集・削除を横並びにする */
+.task-actions {
+    display: flex;
+    align-items: left;
+    gap: 10px;
+}
+
+.task-actions form {
+    margin: 0;
+}
+
+/* 共通のサイズ */
+.task-actions a,
+.task-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* 編集：白背景・青文字・青枠 */
+.task-actions a {
+    background-color: #fff;
+    color: #2563eb;
+    border-color: #2563eb;
+}
+
+.task-actions a:hover {
+    background-color: #eff6ff;
+}
+
+/* 削除：白背景・赤文字・赤枠 */
+.task-actions button {
+    background-color: #fff;
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+.task-actions button:hover {
+    background-color: #fef2f2;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-user {
+    margin-bottom: 32px;
+    overflow-wrap: anywhere;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-link,
+.sidebar-label {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+.sidebar-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: #f3f4f6;
+}
+
+.sidebar-link.is-active {
+    color: #1d4ed8;
+    background-color: #dbeafe;
+}
+
+.sidebar-label {
+    color: #888;
+}
+
+.sidebar-logout {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.app-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.page-header {
+    padding: 20px 32px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-content {
+    padding: 32px;
+    overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+    .sidebar {
+        width: 160px;
+        padding: 16px 8px;
+    }
+
+    .page-content {
+        padding: 16px;
+    }
+    }
+.task-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.task-count {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.task-label {
+    margin-top: 8px;
+    color: #666;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 16px;
+    background-color: #2563eb;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.status-box {
+    flex: 1;
+    min-width: 140px;
+    padding: 24px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* ホーム専用：件数を同じ幅の４列にする */
+.home-page .task-status {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.home-page .status-box {
+    min-width: 0;
+}
+
+/* ホーム専用：見出しとボタンの配置 */
+.home-page .task-toolbar {
+    flex-wrap: wrap;
+    margin: 32px 0 20px;
+}
+
+.home-page .task-toolbar h2 {
+    margin-right: auto;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.home-page .task-toolbar .btn {
+    margin-top: 0;
+}
+
+/* ホーム専用：文字数によって列幅が変わらないようにする */
+.home-page .task-table {
+    table-layout: fixed;
+}
+
+.home-page .task-table td {
+    overflow-wrap: anywhere;
+}
+
+/* 狭い画面では件数を２列にする */
+@media (max-width: 640px) {
+    .home-page .task-status {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* フォームの白い枠 */
+.task-form {
+    width: 100%;
+    max-width: 680px;
+    padding: 28px;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* 入力項目ごとの余白 */
+.task-field {
+    margin-bottom: 24px;
+}
+
+.task-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* 入力欄の幅・枠を統一 */
+.task-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #9ca3af;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #111827;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+textarea.task-input {
+    resize: vertical;
+}
+
+.task-input:focus {
+    border-color: #2563eb;
+    outline: 2px solid #bfdbfe;
+    outline-offset: 1px;
+}
+
+/* 更新・戻るを横並び */
+.task-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.task-form-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-top: 0;
+    border: 1px solid #2563eb;
+    font: inherit;
+    cursor: pointer;
+}
+
+/* 戻るボタン */
+.task-form-actions .btn-secondary {
+    background-color: #fff;
+    color: #2563eb;
+}
+
+.task-form-actions .btn-secondary:hover {
+    background-color: #eff6ff;
+}
+
+/* 入力エラー */
+.task-error {
+    margin-top: 6px;
+    color: #dc2626;
+    font-size: 14px;
+}
+
+@media (max-width: 640px) {
+    .task-form {
+        padding: 16px;
+    }
+}
+
+/* ログイン画面内の余白 */
+.login-page {
+    padding: 16px 0;
+}
+
+.login-page .tasks-title {
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.login-description {
+    margin-bottom: 28px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* ログイン状態の保持 */
+.login-remember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.login-remember input {
+    accent-color: #2563eb;
+}
+
+/* 既存のbtnを横幅いっぱいにする */
+.login-page .login-submit {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-page .login-submit:hover {
+    background-color: #1d4ed8;
+}
+
+.login-forgot {
+    display: block;
+    margin-top: 20px;
+    color: #2563eb;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.login-forgot:hover {
+    text-decoration: underline;
+}
