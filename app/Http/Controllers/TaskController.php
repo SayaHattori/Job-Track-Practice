@@ -71,6 +71,7 @@ class TaskController extends Controller
         $task->content = $request->input('tasks');
         $task->due_date = $request->input('tasks-calendar');
         $task->memo = $request->input('tasks-memo');
+        $task->status = 1; // 新規登録時は未着手
         $task->save();
 
         // task.calender.memoをまとめて保存する
