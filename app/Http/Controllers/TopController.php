@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Http\Requests\Task\TaskRequest;
+use Illuminate\Http\Request;
 
 class TopController extends Controller
 {
-    public function top()
+    public function top(Request $request)
     {
         // 未着手のタスク数
         $Ready = Task::where('status', 1)->count();
@@ -23,7 +25,11 @@ class TopController extends Controller
                         ->count();
 
         //最新のタスクを5件取得 登録順の場合はcreate_at,desc
-        $tasks = Task::orderBy('due_date', 'desc')->take(5)->get();
+    $tasks = Task::whereIn('status', [1, 2])
+        ->where('due_date', '>=', now())
+        ->orderBy('due_date', 'asc')
+        ->take(5)
+        ->get();
         // ホーム画面にデータを渡す
         return view('home', compact('Ready','doing','Done','notReady','tasks'
         ));

@@ -35,8 +35,31 @@
 
         <tr>
             <td>{{ $task->content }}</td>
-            <td>{{ $task->due_date }}</td>
-            <td>{{ $task->memo }}</td>
+
+            <td>
+                @if ($task->due_date)
+
+                    {{ \Carbon\Carbon::parse($task->due_date)->format('Y年m月d日 H時i分') }}
+
+                    <br>
+
+                    @if ($task->status == 3)
+                        <span style="color: green;">完了済み</span>
+
+                    @elseif (\Carbon\Carbon::parse($task->due_date)->isPast())
+                        <span style="color: red;">期限切れ</span>
+
+                    @else
+                        あと
+                        {{ now()->diff(\Carbon\Carbon::parse($task->due_date))->days }}日
+                        {{ now()->diff(\Carbon\Carbon::parse($task->due_date))->h }}時間
+                        {{ now()->diff(\Carbon\Carbon::parse($task->due_date))->i }}分
+                    @endif
+
+                @else
+                    期限なし
+                @endif
+            </td>
 
 
                 {{-- @if ($task->status == 1)
@@ -46,6 +69,8 @@
                 @elseif ($task->status == 3)
                     完了
                 @endif --}}
+
+            <td>{{ $task->memo }}</td>
 
             <td>
                 @if ($task->status == 2)
